@@ -4,7 +4,7 @@ from .models import Banner, Product, ProductAttribute, Category, Size, Color
 import requests
 import json
 from django.views.decorators.csrf import csrf_exempt
-rom django.contrib.auth.models import User
+from django.contrib.auth.models import User
 # Create your views here.
 
 def get_client_ip(request):
