@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% block title %}{{data.title}} | Wig Website{% endblock title %}
+{% block body %}
+<style>
+    .buy-btn1 button:hover {
+        background-color: black;
+        color: white;
+        border: 2px solid white
+    }
+
+    .buy-btn1 button {
+        background-color: black;
+        color: white;
+        border: 2px solid black;
+    }
+
+    .foccused {
+        border: 1px solid cyan;
+    }
+</style>
+<div class="container">
+    <div class="row product-wrapper py-5 px-md-3 px-lg-5">
+        <div class="col-md-6">
+            <div class="image">
+                <img src="/media/{{data.productattribute_set.first.image}}" alt="product">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="details">
+                <div class="title">
+                    <h1 class="px-md-3 py-4"
+                        style="font-family: poppins, sans-serif; font-weight: 900; font-size: 18px;">{{data.title}}</h1>
+                </div>
+                <div class="specs row">
+                    <div class="col-6">
+                        <div class="price-section" style="display: flex;">
+                            <h3 class="px-md-3 product-price-{{data.id}}  product-price"
+                                style="font-size:22px; margin-right: 10px; color: black; font-family: poppins, sans-serif; font-weight: 500;">
+                                </h3>
+                            <h3 
+                                style="font-size:16px; text-decoration: line-through; color: black; font-family: poppins, sans-serif; font-weight: 500;">
+                                $800</h3>
+                        </div>
+
+                    </div>
+                    <div class="col-6">
+                        <h3 class="px-md-3"
+                            style="font-size:18px; color: #F53163; font-family: poppins, sans-serif; font-weight: 500; text-align: right;">
+                            25% OFF</h3>
+                    </div>
+                </div>
+                <div class="options-wrapper my-4 mx-md-3">
+                    <div class="optionsSection" 
+                        style="cursor:pointer; border-bottom: 2px solid #F53163; margin: 20px 0px; transition: all 200ms;">
+                        <div class="color-select row" id="colorOptionSelect">
+                            <div class="text col-3">
+                                <h3 style="font-size: 16px; font-family: poppins, sans-serif; font-weight: 300;">COLOR
+                                </h3>
+                            </div>
+                            <div class="color-name col-7">
+                                <div class="color-options"
+                                    style="display: flex; align-items: center; justify-content: center;">
+                                    <div class="color-box" 
+                                        style="height:20px; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 20px; transform: rotate(45deg); background-color: {{colors.0.color__color_code}}; margin: 0px 10px; margin-bottom: 10px;">
+                                    </div>
+                                    <div class="color-name">
+                                        <h3 class="color-text"
+                                            style=" text-transform: capitalize; font-size: 16px; font-family: poppins, sans-serif;">
+                                            {{colors.0.color__title}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="arrow-down col-2" id="arrow-down">
+                                <i style="font-size: 20px; color: #F53163;" class="fa-solid fa-caret-down"></i>
+                            </div>
+                            <div class="arrow-up col-2 d-none" id="arrow-up">
+                                <i style="font-size: 20px; color: #F53163;" class="fa-solid fa-caret-up"></i>
+                            </div>
+                        </div>
+                        <div class="postselection-row py-2 d-none" id="postcolorselect" style="display: flex;">
+                            {% for clr in colors %}
+                            <div class="box ml-3 choose-color" data-color="{{clr.color__id}}" data-color-code="{{clr.color__color_code}}" data-color-text="{{clr.color__title}}"
+                                style="height:30px; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 30px; transform: rotate(45deg); background-color: {{clr.color__color_code}}; margin: 0px 10px; margin-bottom: 10px; cursor:pointer">
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <h1 class="slug-h1 d-none">{{data.slug}}</h1>
+                    <div class="optionsSection" style="border-bottom: 2px solid #F53163; margin: 20px 0px;">
+                        <div class="length-select row" style="cursor:pointer">
+                            <div class="text col-3">
+                                <h3 style="font-size: 16px; font-family: poppins, sans-serif; font-weight: 300;">LENGTH
+                                </h3>
+                            </div>
+                            <div class="length-name col-7">
+                                <div class="length-options"
+                                    style="display: flex; align-items: center; justify-content: center;">
+                                    <div class="length-default" style="cursor:pointer">
+                                        <h3 class="choose-sizes-default" data-size-id = "{{sizes.0.size__id}}"
+                                            style=" text-transform: capitalize; font-size: 16px; font-family: poppins, sans-serif; text-align: left;">
+                                            {{sizes.0.size__title}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="arrow col-2">
+                                <i style="font-size: 20px; color: #F53163;" class="fa-solid fa-caret-down"></i>
+                            </div>
+                        </div>
+                        <div class="length-options-name d-none" style="cursor:pointer">
+                            {% for size in sizes %}
+                            <h3 class="choose-size color{{size.color__id}}" data-price="{{size.price}}" data-selected-length="{{size.size__title}}" data-length-id = "{{size.size__id}}"
+                                style=" text-transform: capitalize; font-size: 16px; font-family: poppins, sans-serif; text-align: left;">
+                                {{size.size__title}}</h3>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="optionsSection" style="border-bottom: 2px solid #F53163; margin: 20px 0px;">
+                        <div class="length-select row">
+                            <div class="text col-3">
+                                <h3 style="font-size: 16px; font-family: poppins, sans-serif; font-weight: 300;">QTY.
+                                </h3>
+                            </div>
+                            <div class="length-name col-7">
+                                <div class="length-options"
+                                    style="display: flex; align-items: center; justify-content: center;">
+                                    <div class="length-name">
+                                        <h3
+                                            style=" text-transform: capitalize; font-size: 16px; font-family: poppins, sans-serif; text-align: left;">
+                                            1</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="arrow col-2">
+                                <i style="font-size: 20px; color: #F53163;" class="fa-solid fa-caret-down"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="buy-btn1">
+                    <input type="hidden" value="1" class="form-control product-qty-{{data.id}}" id="productQty" />
+                    <input type="hidden" class="product-image-{{data.id}}" value="{{data.productattribute_set.first.image}}" />
+                    <input type="hidden" class="product-id-{{data.id}}" value="{{data.id}}" />
+                    <input type="hidden" class="product-title-{{data.id}}" value="{{data.title}}" />
+                    <button class="mx-md-3 add-to-cart" data-index="{{data.id}}" id="addToCartBtn"
+                        style="width: 100%; padding: 10px 10px;  text-transform: uppercase; font-family: poppins, sans-serif; font-weight: 500; text-align: center; font-size: 16px; margin: 20px 0px;">Add
+                        to Cart</button>
+                </div>
+
+                <div class="desc">
+                    <p class="px-md-3 m-0"
+                        style="font-size: 14px; color: rgb(34, 35, 41); font-family: Quicksand, sans-serif; font-weight: 500;">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae quis, deleniti perspiciatis quas
+                        ab incidunt tenetur natus sapiente architecto, saepe cum autem distinctio magnam, optio neque.
+                        Atque repellat rerum cupiditate quasi! Eligendi obcaecati molestiae, cum inventore fugit
+                        distinctio saepe ea assumenda error delectus incidunt odio? Magni optio perspiciatis fugit ea
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('colorOptionSelect').onclick = () => {
+            document.getElementById('postcolorselect').classList.toggle('d-none')
+            document.getElementById('arrow-up').classList.toggle('d-block')
+            document.getElementById('arrow-down').classList.toggle('d-none')
+        }
+
+
+
+
+    </script>
+</div>
+{% endblock body %}

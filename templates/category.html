@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Category Page{% endblock title %}
+{% block body %}
+{% load static %}
+<div class="headersection">
+    <h1 class="py-4 px-2 text-center">Curly Wigs</h1>
+</div>
+<div class="productsection row" style="padding: 0 30px">
+    {% for prod in data %}
+    <div class="productBox col-md" style="cursor:pointer">
+        <a href="http://localhost:8000/product/{{prod.slug}}">
+        <div class="image-wrapper" style="position: relative;">
+            <img src="/media/{{prod.productattribute_set.first.image}}" alt="product1">
+        </div>
+        <div class="title py-2" style="width:100%;font-size: 20px; color: rgb(40, 40, 40);">{{prod.title}}</div>
+            <div class="price" style="width:100%; margin: 0;">
+                <p  style="color: rgb(211, 141, 37); font-size: 20px; margin: 0;">Rs.{{prod.productattribute_set.first.price}}</p>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock body %}
