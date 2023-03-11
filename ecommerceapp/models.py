@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.html import mark_safe
+from django.utils.safestring import mark_safe
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 # Banner
@@ -110,34 +110,44 @@ status_choice=(
         ('shipped','Shipped'),
         ('delivered','Delivered'),
     )
-class CartOrder(models.Model):
-    user=models.ForeignKey(User,on_delete=models.CASCADE)
-    total_amt=models.FloatField()
-    paid_status=models.BooleanField(default=False)
-    order_dt=models.DateTimeField(auto_now_add=True)
-    order_status=models.CharField(choices=status_choice,default='process',max_length=150)
+# class CartOrder(models.Model):
+#     user=models.ForeignKey(User,on_delete=models.CASCADE)
+#     total_amt=models.FloatField()
+#     paid_status=models.BooleanField(default=False)
+#     order_dt=models.DateTimeField(auto_now_add=True)
+#     order_status=models.CharField(choices=status_choice,default='process',max_length=150)
 
-    class Meta:
-        verbose_name_plural='8. Orders'
+#     class Meta:
+#         verbose_name_plural='8. Orders'
 
-# OrderItems
-class CartOrderItems(models.Model):
-    order=models.ForeignKey(CartOrder,on_delete=models.CASCADE)
-    invoice_no=models.CharField(max_length=150)
-    item=models.CharField(max_length=150)
-    image=models.CharField(max_length=200)
-    qty=models.IntegerField()
-    price=models.FloatField()
-    total=models.FloatField()
+# # OrderItems
+# class CartOrderItems(models.Model):
+#     order=models.ForeignKey(CartOrder,on_delete=models.CASCADE)
+#     invoice_no=models.CharField(max_length=150)
+#     item=models.CharField(max_length=150)
+#     image=models.CharField(max_length=200)
+#     qty=models.IntegerField()
+#     price=models.FloatField()
+#     total=models.FloatField()
+
+#     class Meta:
+#         verbose_name_plural='9. Order Items'
+
+#     def image_tag(self):
+#         return mark_safe('<img src="/media/%s" width="50" height="50" />' % (self.image))
+# #  <------- PROVISION MODELS FOR PRODUCT REVIEWS AND WISHLIST -------->
+
+# Product Review
+
+class CartOrderDetails(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    qty = models.CharField(max_length=200)
+    price = models.CharField(max_length=200)
+    details = models.ForeignKey(ProductAttribute, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural='9. Order Items'
-
-    def image_tag(self):
-        return mark_safe('<img src="/media/%s" width="50" height="50" />' % (self.image))
-#  <------- PROVISION MODELS FOR PRODUCT REVIEWS AND WISHLIST -------->
-
-# Product Review
 
 # RATING=(
 #     (1,'1'),

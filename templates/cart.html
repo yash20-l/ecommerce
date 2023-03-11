@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block title %}{{user.username}}'s Shoopping Cart{% endblock title %}
+{% block body %}
+<div class="container">
+    {% load static %}
+    <div class="heading">
+        <h1
+            style="text-align:center; font-size: 28px; font-family: poppins, sans-serif; font-weight: 500; padding: 20px 0px; color:#f53163">
+            My Shopping Cart</h1>
+    </div>
+    <div class="cart-wrapper" style="padding: 20px 0px; background-color: white; border-radius: 20px; margin:20px 0px;">
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <th scope="col">Description</th>
+                    <th scope="col">Size</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Remove</th>
+                    <th scope="col">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>
+                        <div class="desc-wrapper" style="display: flex;">
+                            <img src="/media/{{item.details.image}}" alt="product_image"
+                                style="height: 100px; width: 100px; margin-right: 10px;">
+                            <div class="description"
+                                style="display: flex; flex-direction: column; justify-content: center; margin-left: 10px;">
+                                <h1
+                                    style="font-size: 16px; font-family: poppins, sans-serif; font-weight: 500; color: black; padding-bottom: 6px;">
+                                    {{item.product.title}}</h1>
+                                <h3
+                                    style="font-size: 12px; font-family: poppins, sans-serif; font-weight: 300; color: black;">
+                                    {{item.details.color.title}}</h3>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="size-details">
+                            <div class=" size-box"
+                            style="background-color: white;color: black;height: 2.2rem;border: 2px solid #dbdbdb;width: 2rem;display: flex;align-items: center;justify-content: center;text-align: center;">
+                            <p>16''</p>
+                        </div>
+                </div>
+                </td>
+                <td>
+        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary">+</button>
+            <input type="text" value='{{item.qty}}' style="width: 35px; text-align: center; font-size: 16px;" disabled>
+            <button type="button" class="btn btn-secondary">-</button>
+        </div>
+    </td>
+    <td>
+        <div class="delete" style="text-align: center;">
+            <i class="fa-solid fa-trash" style="font-size: 25px; color: red;"></i>
+        </div>
+    </td>
+    <td>
+        <div class="price" style="text-align: center;">
+            <h3 style="font-size: 16px; font-weight: 500; font-family: poppins, sans-serif;">${{item.price}}</h3>
+        </div>
+    </td>
+    </tr>
+    {% endfor %}
+    
+    </tbody>
+    </table>
+
+    <div class="checkout-section row">
+        <div class="promo-code-section col-8" style="display: flex;">
+            <input type="text" name="promo_code" placeholder='Please enter your promo code here' style="width: 100%; font-size: 14px; font-weight: 500; font-family: poppins, sans-serif; padding: 5px 10px; outline: none; border: 2px solid rgb(176, 176, 176);"><input type="submit" value="Apply discount" style="margin: 0px -50px; outline: none; border: none; color: white; background-color: #B6666F; cursor:pointer; width:12rem; text-align: left; padding-left: 10px;">
+        </div>
+        <div class="col-4">
+            <button style="width: 100%; padding: 10px 10px; background-color: black; color: white;">Checkout &#x2192;</button>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock body %}
